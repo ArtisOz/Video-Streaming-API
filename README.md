@@ -6,6 +6,7 @@ This project is a Spring Boot application that provides RESTful APIs for managin
 ## Features
 - Add, list, update, and soft-delete videos.
 - Retrieve video statistics by video ID.
+- Serve video content.
 
 ## Technologies Used
 - Java
@@ -37,7 +38,7 @@ This project is a Spring Boot application that provides RESTful APIs for managin
    ```
 
 4. Access the application:
-   - Open your browser and go to: `http://localhost:8080`.
+    - Open your browser and go to: `http://localhost:8080`.
 
 ## Project Structure
 ```
@@ -121,6 +122,26 @@ demo/
   }
   ```
 
+#### Play a Video
+- **Endpoint**: `GET /videos/{id}/play`
+- **Example**:
+  ```bash
+  GET /videos/1/play
+  ```
+- **Expected Response**:
+  ```
+  Playing video: Inception - [Content Mocked]
+  ```
+
+#### Serve Video Content
+- **Endpoint**: `GET /videos/{id}/content`
+- **Example**:
+  ```bash
+  GET /videos/1/content
+  ```
+- **Expected Response**:
+  The video file (e.g., `sample.mp4`) is streamed or offered for download.
+
 #### Soft Delete a Video
 - **Endpoint**: `PUT /videos/{id}/delist`
 - **Example**:
@@ -164,7 +185,7 @@ mvn test
 ```
 
 ## Authors
-- [Artis Ozols](mailto:Artisozolss@gmail.com)
+- [Artis Ozols](mailto:artisozolss@gmail.com)
 
 ## License
 This project is licensed under the MIT License.

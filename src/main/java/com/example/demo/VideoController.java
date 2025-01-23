@@ -47,20 +47,15 @@ public class VideoController {
         return ResponseEntity.ok().build();
     }
 
-    // Get statistics
+    // Play a video
+    @GetMapping("/{id}/play")
+    public ResponseEntity<String> playVideo(@PathVariable Long id) {
+        return ResponseEntity.ok(videoService.playVideo(id));
+    }
+
+    // Get statistics for a video
     @GetMapping("/{id}/stats")
     public ResponseEntity<Statistics> getStatistics(@PathVariable Long id) {
         return ResponseEntity.ok(videoService.getStatistics(id));
-    }
-
-    //handle default endpoint
-    @RestController
-    @RequestMapping("/")
-    public class DefaultController {
-
-        @GetMapping
-        public String home() {
-            return "Welcome! The application is running.";
-        }
     }
 }

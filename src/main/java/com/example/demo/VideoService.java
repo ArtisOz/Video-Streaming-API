@@ -17,13 +17,7 @@ public class VideoService {
 
     // Add a video
     public Video saveVideo(Video video) {
-        Video savedVideo = videoRepository.save(video);
-        Statistics statistics = new Statistics();
-        statistics.setVideoId(savedVideo.getId());
-        statistics.setImpressions(0);
-        statistics.setViews(0);
-        statisticsRepository.save(statistics);
-        return savedVideo;
+        return videoRepository.save(video);
     }
 
     // List all videos
@@ -44,9 +38,16 @@ public class VideoService {
         });
     }
 
+    // Play a video
+    public String playVideo(Long id) {
+        return videoRepository.findById(id)
+                .map(video -> "Playing video: " + video.getTitle() + " - [Content Mocked]")
+                .orElseThrow(() -> new RuntimeException("Video not found with ID: " + id));
+    }
+
     // Get statistics for a video
-    public Statistics getStatistics(Long videoId) {
-        return statisticsRepository.findByVideoId(videoId)
-                .orElseThrow(() -> new RuntimeException("Statistics not found for video ID: " + videoId));
+    public Statistics getStatistics(Long id) {
+        return statisticsRepository.findByVideoId(id)
+                .orElseThrow(() -> new RuntimeException("Statistics not found for video ID: " + id));
     }
 }
