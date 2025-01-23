@@ -7,6 +7,7 @@ This project is a Spring Boot application that provides RESTful APIs for managin
 - Add, list, update, and soft-delete videos.
 - Retrieve video statistics by video ID.
 - Serve video content.
+- Search videos by title, director, genre, and year of release.
 
 ## Technologies Used
 - Java
@@ -86,7 +87,7 @@ demo/
   }
   ```
 
-#### List Videos
+#### List All Videos
 - **Endpoint**: `GET /videos`
 - **Expected Response**:
   ```json
@@ -101,7 +102,7 @@ demo/
   ]
   ```
 
-#### Get Video by ID
+#### Get a Video by ID
 - **Endpoint**: `GET /videos/{id}`
 - **Example**:
   ```bash
@@ -140,7 +141,9 @@ demo/
   GET /videos/1/content
   ```
 - **Expected Response**:
-  The video file (e.g., `sample.mp4`) is streamed or offered for download.
+  ```
+  Streaming content for video ID: 1
+  ```
 
 #### Soft Delete a Video
 - **Endpoint**: `PUT /videos/{id}/delist`
@@ -149,8 +152,8 @@ demo/
   PUT /videos/1/delist
   ```
 - **Expected Response**:
-  ```
-  Video delisted successfully.
+  ```json
+  "Video delisted successfully."
   ```
 
 #### Delete a Video
@@ -173,9 +176,30 @@ demo/
   ```json
   {
     "videoId": 1,
-    "impressions": 100,
-    "views": 50
+    "impressions": 0,
+    "views": 0
   }
+  ```
+
+### Search
+
+#### Search Videos
+- **Endpoint**: `GET /videos/search`
+- **Example**:
+  ```bash
+  GET /videos/search?director=Christopher%20Nolan&genre=Sci-Fi
+  ```
+- **Expected Response**:
+  ```json
+  [
+    {
+      "id": 1,
+      "title": "Inception",
+      "director": "Christopher Nolan",
+      "genre": "Sci-Fi",
+      "runningTime": 148
+    }
+  ]
   ```
 
 ## Running Tests
