@@ -53,9 +53,26 @@ public class VideoController {
         return ResponseEntity.ok(videoService.playVideo(id));
     }
 
+    // Serve video content
+    @GetMapping("/{id}/content")
+    public ResponseEntity<String> getVideoContent(@PathVariable Long id) {
+        return ResponseEntity.ok("Streaming content for video ID: " + id);
+    }
+
     // Get statistics for a video
     @GetMapping("/{id}/stats")
     public ResponseEntity<Statistics> getStatistics(@PathVariable Long id) {
         return ResponseEntity.ok(videoService.getStatistics(id));
+    }
+
+
+    // Search videos
+    @GetMapping("/search")
+    public ResponseEntity<List<Video>> searchVideos(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String director,
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) Integer year) {
+        return ResponseEntity.ok(videoService.searchVideos(title, director, genre, year));
     }
 }

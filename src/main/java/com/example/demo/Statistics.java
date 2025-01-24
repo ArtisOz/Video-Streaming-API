@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,10 +11,21 @@ public class Statistics {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore // Hides the id field from the JSON response
     private Long id;
     private Long videoId;
     private int impressions;
     private int views;
+
+    // Default constructor
+    public Statistics() {}
+
+    // Constructor with parameters
+    public Statistics(Long videoId, int impressions, int views) {
+        this.videoId = videoId;
+        this.impressions = impressions;
+        this.views = views;
+    }
 
     // Getters and Setters
     public Long getId() {

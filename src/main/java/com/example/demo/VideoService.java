@@ -38,7 +38,7 @@ public class VideoService {
         });
     }
 
-    // Play a video
+    // Play a video (mocked response)
     public String playVideo(Long id) {
         return videoRepository.findById(id)
                 .map(video -> "Playing video: " + video.getTitle() + " - [Content Mocked]")
@@ -48,6 +48,12 @@ public class VideoService {
     // Get statistics for a video
     public Statistics getStatistics(Long id) {
         return statisticsRepository.findByVideoId(id)
-                .orElseThrow(() -> new RuntimeException("Statistics not found for video ID: " + id));
+                .orElse(new Statistics(id, 0, 0)); // Default ID remains null
+    }
+
+
+    // Search for videos
+    public List<Video> searchVideos(String title, String director, String genre, Integer yearOfRelease) {
+        return videoRepository.searchVideos(title, director, genre, yearOfRelease);
     }
 }
